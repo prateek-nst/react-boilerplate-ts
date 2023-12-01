@@ -9,23 +9,8 @@ module.exports = {
 	],
 	ignorePatterns: ['dist', '.eslintrc.cjs'],
 	parser: '@typescript-eslint/parser',
-	plugins: ['react-refresh', 'simple-import-sort'],
+	plugins: ['react-refresh'],
 	rules: {
-		// 'simple-import-sort/imports': [
-		// 	'error',
-		// 	{
-		// 		// groups: [
-		// 		// 	['^react'],
-		// 		// 	['^@mui'],
-		// 		// 	['^@redux'],
-		// 		// 	['^@react-redux'],
-		// 		// 	['^@?\\w'],
-		// 		// 	['@/(.*)'],
-		// 		// 	['^[./]'],
-		// 		// ],
-		// 	},
-		// ],
-		// 'simple-import-sort/exports': 'error',
 		'react-refresh/only-export-components': [
 			'warn',
 			{ allowConstantExport: true },
