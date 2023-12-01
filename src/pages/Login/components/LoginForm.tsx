@@ -45,6 +45,7 @@ const LoginForm = () => {
 
 			setUser(res.payload.data);
 			app.logger.info({ message: 'Login Successfull' }, 'user1', 'loginForm');
+			app.storage.setItem('item1', 'value1');
 			navigate('/deposit-collect');
 		} catch (error) {
 			app.logger.info(

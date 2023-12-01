@@ -1,4 +1,4 @@
-import { DevLogger, ProdLogger } from '@/services/Logger/Logger';
+import { DevLogger, ProdLogger } from '@/services/logger/Logger';
 
 let initialAppState: appState = {} as appState;
 
