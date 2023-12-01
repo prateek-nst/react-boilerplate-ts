@@ -2,7 +2,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 const axiosInstance: AxiosInstance = axios.create({
-	baseURL: 'https://darwin-qa-api.mifix.dev',
+	baseURL: import.meta.env.VITE_APP_BASE_URL,
 });
 
 axiosInstance.interceptors.request.use(
