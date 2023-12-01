@@ -1,10 +1,9 @@
+import { createTheme } from '@mui/material/styles';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import MetropolisBold from '@/assets/fonts/Metropolis/Metropolis-Bold.otf';
 import MetropolisLight from '@/assets/fonts/Metropolis/Metropolis-Light.otf';

@@ -1,8 +1,7 @@
-import { Outlet } from 'react-router-dom';
+import './Dhanam.scss';
 
 import { Box } from '@mui/material';
-
-import './Dhanam.scss';
+import { Outlet } from 'react-router-dom';
 
 const Dhanam = () => {
 	return (

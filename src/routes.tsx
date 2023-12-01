@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 
 import ErrorPage from '@/components/Error/Error';
 import Dhanam from '@/layout/Dhanam';
+import DepositCollect from '@/pages/DepositCollect/DepositCollect';
 import Login from '@/pages/Login/Login';
 
 // import Dhanam from '../layout/Dhanam';
@@ -43,7 +44,7 @@ export const routes = [
 				path: '/deposit-collect',
 				element: (
 					<Suspense fallback={'Loading ...'}>
-						<p>depoist collect</p>
+						<DepositCollect />
 					</Suspense>
 				),
 				errorElement: <ErrorPage />,

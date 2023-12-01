@@ -11,21 +11,21 @@ module.exports = {
 	parser: '@typescript-eslint/parser',
 	plugins: ['react-refresh', 'simple-import-sort'],
 	rules: {
-		'simple-import-sort/imports': [
-			'error',
-			{
-				groups: [
-					['^react'],
-					['^@mui'],
-					['^@redux'],
-					['^@react-redux'],
-					['^@?\\w'],
-					['@/(.*)'],
-					['^[./]'],
-				],
-			},
-		],
-		'simple-import-sort/exports': 'error',
+		// 'simple-import-sort/imports': [
+		// 	'error',
+		// 	{
+		// 		// groups: [
+		// 		// 	['^react'],
+		// 		// 	['^@mui'],
+		// 		// 	['^@redux'],
+		// 		// 	['^@react-redux'],
+		// 		// 	['^@?\\w'],
+		// 		// 	['@/(.*)'],
+		// 		// 	['^[./]'],
+		// 		// ],
+		// 	},
+		// ],
+		// 'simple-import-sort/exports': 'error',
 		'react-refresh/only-export-components': [
 			'warn',
 			{ allowConstantExport: true },
