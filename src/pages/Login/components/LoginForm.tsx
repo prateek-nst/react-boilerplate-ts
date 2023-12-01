@@ -19,15 +19,41 @@ import NewstreetLogo from '../../../assets/svg/NewStreetLogo';
 import TextHeading from '../../../components/TextHeading';
 import TextWithUnderline from '../../../components/TextWithUnderline';
 import loginClient from '@/services/auth/login';
+import { useAppState } from '@/store/useAppState';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
 	const [formData, setFormData] = useState({ userName: '', password: '' });
-	// const { app, setUser } = useAppState();
+	const { app, setUser } = useAppState();
 
-	// console.log(app);
-	// console.log(app.user);
+	const navigate = useNavigate();
 
-	// const navigate = useNavigate();
+	async function handleLogin() {
+		try {
+			const res = await loginClient.login({
+				payload: {
+					employeeId: formData.userName,
+					password: formData.password,
+				},
+			});
+
+			console.log(res);
+
+			if (!res.payload.data) {
+				throw new Error(res.payload.message);
+			}
+
+			setUser(res.payload.data);
+			app.logger.info({ message: 'Login Successfull' }, 'user1', 'loginForm');
+			navigate('/deposit-collect');
+		} catch (error) {
+			app.logger.info(
+				{ message: (error as Error).message },
+				'user1',
+				'loginForm',
+			);
+		}
+	}
 
 	return (
 		<Box
@@ -153,33 +179,7 @@ const LoginForm = () => {
 							borderRadius: '1rem',
 						}}
 						disabled={formData.userName == '' || formData.password == ''}
-						onClick={() => {
-							loginClient.login({
-								payload: {
-									employeeId: formData.userName,
-									password: formData.password,
-								},
-							});
-							// app.logger.info(
-							// 	{ message: 'some info' },
-							// 	'user1',
-							// 	'loginForm',
-							// );
-							// app.storage.setItem('key', 'value');
-							// setUser({
-							// 	accessToken: '',
-							// 	refreshToken: '',
-							// 	lastLoggedIn: '',
-							// 	partnerId: '',
-							// 	productId: '',
-							// 	role: '',
-							// 	roleCode: '',
-							// 	userName: '',
-							// 	profileImage: '',
-							// });
-							// setLoading(true);
-							// navigate('/deposit-collect');
-						}}
+						onClick={handleLogin}
 					>
 						SIGN IN
 					</Button>

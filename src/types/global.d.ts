@@ -48,7 +48,7 @@ declare global {
 	interface appState {
 		logger: LoggerType;
 		user?: User;
-		loading: boolean;
+		loading: boolean; // a global loader
 		storage: StorageInterface;
 	}
 
