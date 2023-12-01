@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
@@ -18,6 +18,7 @@ import {
 import NewstreetLogo from '../../../assets/svg/NewStreetLogo';
 import TextHeading from '../../../components/TextHeading';
 import TextWithUnderline from '../../../components/TextWithUnderline';
+import loginClient from '@/services/auth/login';
 
 const LoginForm = () => {
 	const [formData, setFormData] = useState({ userName: '', password: '' });
@@ -26,7 +27,7 @@ const LoginForm = () => {
 	// console.log(app);
 	// console.log(app.user);
 
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	return (
 		<Box
@@ -153,6 +154,12 @@ const LoginForm = () => {
 						}}
 						disabled={formData.userName == '' || formData.password == ''}
 						onClick={() => {
+							loginClient.login({
+								payload: {
+									employeeId: formData.userName,
+									password: formData.password,
+								},
+							});
 							// app.logger.info(
 							// 	{ message: 'some info' },
 							// 	'user1',
@@ -170,9 +177,8 @@ const LoginForm = () => {
 							// 	userName: '',
 							// 	profileImage: '',
 							// });
-
 							// setLoading(true);
-							navigate('/deposit-collect');
+							// navigate('/deposit-collect');
 						}}
 					>
 						SIGN IN
