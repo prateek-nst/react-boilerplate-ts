@@ -2,8 +2,21 @@ import { Box, Grid } from '@mui/material';
 
 import LoginLogo from '../../assets/svg/loginlogo.svg';
 import LoginForm from './components/LoginForm';
+import useWso from '@/store/useWso';
+import { useAppState } from '@/store/useAppState';
 
 const Login = () => {
+	const wso = useWso();
+	const { app } = useAppState();
+
+	if (wso.isError) {
+		console.log(wso.error);
+	}
+
+	if (wso.isSuccess) {
+		app.storage.setItem('wsoToken', wso.data.access_token);
+	}
+
 	return (
 		<Grid container sx={{ width: '100%' }}>
 			<Grid item xs={7}>
