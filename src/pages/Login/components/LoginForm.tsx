@@ -14,46 +14,38 @@ import {
 	Typography,
 } from '@mui/material';
 
-// import { useAppState } from '@/state/client/useAppState';
 import NewstreetLogo from '../../../assets/svg/NewStreetLogo';
 import TextHeading from '../../../components/TextHeading';
 import TextWithUnderline from '../../../components/TextWithUnderline';
-import loginClient from '@/services/auth/login';
 import { useAppState } from '@/store/useAppState';
-import { useNavigate } from 'react-router-dom';
+
+import useLogin from '@/store/useLogin';
+import useWso from '@/store/useWso';
 
 const LoginForm = () => {
 	const [formData, setFormData] = useState({ userName: '', password: '' });
-	const { app, setUser } = useAppState();
+	const { app } = useAppState();
+	const login = useLogin();
 
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
+
+	const { data } = useWso();
+	console.log(data);
 
 	async function handleLogin() {
-		try {
-			const res = await loginClient.login({
-				payload: {
-					employeeId: formData.userName,
-					password: formData.password,
-				},
-			});
+		login.mutate({
+			userName: formData.userName,
+			password: formData.password,
+		});
+	}
 
-			console.log(res);
+	if (login.isError) {
+		console.log(login.error);
+	}
 
-			if (!res.payload.data) {
-				throw new Error(res.payload.message);
-			}
-
-			setUser(res.payload.data);
-			app.logger.info({ message: 'Login Successfull' }, 'user1', 'loginForm');
-			app.storage.setItem('item1', 'value1');
-			navigate('/deposit-collect');
-		} catch (error) {
-			app.logger.info(
-				{ message: (error as Error).message },
-				'user1',
-				'loginForm',
-			);
-		}
+	if (login.isSuccess && login.data.data) {
+		console.log(login.data);
+		app.storage.setItem('accessToken', login.data.data?.accessToken);
 	}
 
 	return (
@@ -116,7 +108,10 @@ const LoginForm = () => {
 								value={formData.userName}
 								onChange={(e: ChangeEvent<HTMLInputElement>) =>
 									setFormData((prev) => {
-										return { ...prev, userName: e.target.value };
+										return {
+											...prev,
+											userName: e.target.value,
+										};
 									})
 								}
 							/>
@@ -156,7 +151,10 @@ const LoginForm = () => {
 								value={formData.password}
 								onChange={(e: ChangeEvent<HTMLInputElement>) =>
 									setFormData((prev) => {
-										return { ...prev, password: e.target.value };
+										return {
+											...prev,
+											password: e.target.value,
+										};
 									})
 								}
 							/>
