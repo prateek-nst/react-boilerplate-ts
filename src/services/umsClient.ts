@@ -1,24 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { getStorage } from '@/utils/common';
 import axios, { AxiosInstance } from 'axios';
 
 const axiosInstance: AxiosInstance = axios.create({
 	baseURL: import.meta.env.VITE_UMS_BASE_URL,
 });
 
+const storage = getStorage();
+
 axiosInstance.interceptors.request.use(
 	(config) => {
 		config.headers = config.headers || {};
 
-		const wsoToken = sessionStorage.getItem('wsoToken');
-		// const accessToken = sessionStorage.getItem('accessToken');
+		const wsoToken = storage.getItem('wsoToken');
 
 		if (wsoToken) {
 			config.headers['Authorization'] = `Bearer ${wsoToken}`;
 		}
-
-		// if (accessToken) {
-		// 	config.headers['x-api-key'] = `${accessToken}`;
-		// }
 
 		config.headers['Content-Type'] = 'application/json';
 

@@ -1,22 +1,20 @@
-import { DevLogger, ProdLogger } from '@/services/logger/Logger';
+import { getLogger, getStorage } from '@/utils/common';
 
 let initialAppState: appState = {} as appState;
-
-console.log(import.meta.env.MODE);
 
 switch (import.meta.env.MODE) {
 	case 'development':
 		initialAppState = {
-			logger: new DevLogger(),
+			logger: getLogger(),
 			loading: false,
-			storage: window.sessionStorage,
+			storage: getStorage(),
 		};
 		break;
 	case 'production':
 		initialAppState = {
-			logger: new ProdLogger(),
+			logger: getLogger(),
 			loading: false,
-			storage: window.sessionStorage,
+			storage: getStorage(),
 		};
 		break;
 }
