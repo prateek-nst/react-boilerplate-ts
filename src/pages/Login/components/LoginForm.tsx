@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 
 import LockIcon from '@mui/icons-material/Lock';
@@ -17,20 +17,27 @@ import {
 import NewstreetLogo from '../../../assets/svg/NewStreetLogo';
 import TextHeading from '../../../components/TextHeading';
 import TextWithUnderline from '../../../components/TextWithUnderline';
-import { useAppState } from '@/store/useAppState';
+// import { useAppState } from '@/store/useAppState';
 
 import useLogin from '@/store/useLogin';
-import useWso from '@/store/useWso';
+import DI from '@/hoc/DI';
+// import useWso from '@/store/useWso';
 
-const LoginForm = () => {
+interface LoginFormProps extends Props {
+	id: string;
+	name: string;
+	age: number;
+}
+
+const LoginForm = (props: LoginFormProps) => {
 	const [formData, setFormData] = useState({ userName: '', password: '' });
-	const { app } = useAppState();
+	console.log(props);
 	const login = useLogin();
 
 	// const navigate = useNavigate();
 
-	const { data } = useWso();
-	console.log(data);
+	// const { data } = useWso();
+	// console.log(data);
 
 	async function handleLogin() {
 		login.mutate({
@@ -41,11 +48,13 @@ const LoginForm = () => {
 
 	if (login.isError) {
 		console.log(login.error);
+		// props.logger.
 	}
 
 	if (login.isSuccess && login.data.data) {
-		console.log(login.data);
-		app.storage.setItem('accessToken', login.data.data?.accessToken);
+		// console.log(login.data);
+		props.logger.info({ message: 'Login success' }, 'user1', 'loginform1');
+		props.storage.setItem('accessToken', login.data.data?.accessToken);
 	}
 
 	return (
@@ -199,4 +208,6 @@ const LoginForm = () => {
 	);
 };
 
-export default LoginForm;
+// type t = React.ComponentProps<typeof LoginForm>;
+
+export default DI(LoginForm);

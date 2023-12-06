@@ -44,6 +44,11 @@ declare global {
 		error(data: Error, user: string, page: string): void;
 	}
 
+	interface Props {
+		logger: BaseLogger;
+		storage: StorageInterface;
+	}
+
 	// app state that we can carry around the whole app
 	interface appState {
 		logger: LoggerType;

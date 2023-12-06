@@ -20,7 +20,7 @@ export function getLogger(): BaseLogger {
 	return logger;
 }
 
-export function getStorage() {
+export function getStorage(): StorageInterface {
 	let storage;
 	switch (import.meta.env.VITE_STORAGE) {
 		case 'localStorage':

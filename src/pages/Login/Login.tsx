@@ -3,18 +3,20 @@ import { Box, Grid } from '@mui/material';
 import LoginLogo from '../../assets/svg/loginlogo.svg';
 import LoginForm from './components/LoginForm';
 import useWso from '@/store/useWso';
-import { useAppState } from '@/store/useAppState';
+import DI from '@/hoc/DI';
 
-const Login = () => {
+const Login = (props: Props) => {
+	console.log(props);
 	const wso = useWso();
-	const { app } = useAppState();
 
 	if (wso.isError) {
 		console.log(wso.error);
+		props.logger.error(wso.error, 'user1', 'login1');
 	}
 
 	if (wso.isSuccess) {
-		app.storage.setItem('wsoToken', wso.data.access_token);
+		props.storage.setItem('wsoToken', wso.data.access_token);
+		props.logger.info({ message: 'wsotoken fetched' }, 'user1', 'login1');
 	}
 
 	return (
@@ -31,10 +33,10 @@ const Login = () => {
 				></Box>
 			</Grid>
 			<Grid item xs={5}>
-				<LoginForm />
+				<LoginForm id="100" name="aa" age={10} />
 			</Grid>
 		</Grid>
 	);
 };
 
-export default Login;
+export default DI(Login);
