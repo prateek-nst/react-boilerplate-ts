@@ -1,11 +1,16 @@
 import DI from '@/hoc/DI.tsx';
 import { useAppState } from '@/store/useAppState';
-// import { useAppState } from '@/state/client/useAppState.tsx';
 
-const DepositCollect = () => {
+const DepositCollect = (props: Props) => {
 	const { app } = useAppState();
+
 	console.log(app.user);
-	// console.log(i);
+
+	props.logger.info(
+		{ message: 'deposit-collected loaded' },
+		'user1',
+		props.componentName,
+	);
 
 	return <>deposit collect</>;
 };
