@@ -4,6 +4,7 @@ import ErrorPage from '@/components/Error/Error';
 import Dhanam from '@/layout/Dhanam';
 import DepositCollect from '@/pages/DepositCollect/DepositCollect';
 import Login from '@/pages/Login/Login';
+import AuthRequired from './components/AuthRequired';
 
 // import Dhanam from '../layout/Dhanam';
 // import DepositCollect from '../pages/deposit-collect/DepositCollect';
@@ -44,7 +45,9 @@ export const routes = [
 				path: '/deposit-collect',
 				element: (
 					<Suspense fallback={'Loading ...'}>
-						<DepositCollect />
+						<AuthRequired>
+							<DepositCollect />
+						</AuthRequired>
 					</Suspense>
 				),
 				errorElement: <ErrorPage />,

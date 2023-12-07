@@ -1,3 +1,5 @@
+import { RolePage } from '@/utils/roles';
+
 export {};
 
 declare global {
@@ -50,6 +52,7 @@ declare global {
 		storage: StorageInterface;
 		componentName: string;
 		children?: React.ReactNode;
+		roles: RolePage;
 	}
 
 	// app state that we can carry around the whole app

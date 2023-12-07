@@ -9,6 +9,8 @@ import Dash from './Dash';
 const Login = (props: Props) => {
 	const wso = useWso();
 
+	console.log(props.roles);
+
 	if (wso.isError) {
 		console.log(wso.error);
 		props.logger.error(wso.error, 'user1', props.componentName);
