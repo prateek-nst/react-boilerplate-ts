@@ -45,8 +45,10 @@ declare global {
 	}
 
 	interface Props {
-		logger: BaseLogger;
+		logger: LoggerType;
 		storage: StorageInterface;
+		componentName: string;
+		children?: React.ReactNode;
 	}
 
 	// app state that we can carry around the whole app

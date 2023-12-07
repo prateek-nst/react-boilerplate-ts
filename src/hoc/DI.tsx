@@ -4,15 +4,20 @@ import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import React from 'react';
 
 const DI = <T extends Props>(Component: React.ComponentType<T>) => {
-	return function (props: Omit<T, 'logger' | 'storage'>) {
+	return function (
+		props: Omit<T, 'logger' | 'storage' | 'componentName'> & {
+			children?: React.ReactNode;
+		},
+	) {
 		const logger = getLogger();
 		const storage = getStorage();
+		const componentName = Component.name;
 
-		const newProps = { ...props, logger, storage } as T;
+		const newProps = { ...props, logger, storage, componentName } as T;
 
 		return (
 			<ErrorBoundary fallback={<div>Component has failed to render</div>}>
-				<Component {...newProps} />
+				<Component {...newProps}>{props.children}</Component>
 			</ErrorBoundary>
 		);
 	};

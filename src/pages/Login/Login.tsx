@@ -4,19 +4,23 @@ import LoginLogo from '../../assets/svg/loginlogo.svg';
 import LoginForm from './components/LoginForm';
 import useWso from '@/store/useWso';
 import DI from '@/hoc/DI';
+import Dash from './Dash';
 
 const Login = (props: Props) => {
-	console.log(props);
 	const wso = useWso();
 
 	if (wso.isError) {
 		console.log(wso.error);
-		props.logger.error(wso.error, 'user1', 'login1');
+		props.logger.error(wso.error, 'user1', props.componentName);
 	}
 
 	if (wso.isSuccess) {
 		props.storage.setItem('wsoToken', wso.data.access_token);
-		props.logger.info({ message: 'wsotoken fetched' }, 'user1', 'login1');
+		props.logger.info(
+			{ message: 'wsotoken fetched' },
+			'user1',
+			props.componentName,
+		);
 	}
 
 	return (
@@ -34,6 +38,11 @@ const Login = (props: Props) => {
 			</Grid>
 			<Grid item xs={5}>
 				<LoginForm id="100" name="aa" age={10} />
+			</Grid>
+			<Grid item xs={5}>
+				<Dash>
+					<p>some content</p>
+				</Dash>
 			</Grid>
 		</Grid>
 	);
