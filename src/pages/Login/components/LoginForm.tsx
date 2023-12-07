@@ -31,7 +31,6 @@ interface LoginFormProps extends Props {
 
 const LoginForm = (props: LoginFormProps) => {
 	const [formData, setFormData] = useState({ userName: '', password: '' });
-	console.log(props);
 	const login = useLogin();
 
 	// const navigate = useNavigate();
@@ -47,13 +46,19 @@ const LoginForm = (props: LoginFormProps) => {
 	}
 
 	if (login.isError) {
-		console.log(login.error);
-		// props.logger.
+		props.logger.error(
+			new Error(login.error.message),
+			'user1',
+			props.componentName,
+		);
 	}
 
 	if (login.isSuccess && login.data.data) {
-		// console.log(login.data);
-		props.logger.info({ message: 'Login success' }, 'user1', 'loginform1');
+		props.logger.info(
+			{ message: 'Login success' },
+			'user1',
+			props.componentName,
+		);
 		props.storage.setItem('accessToken', login.data.data?.accessToken);
 	}
 
@@ -207,7 +212,5 @@ const LoginForm = (props: LoginFormProps) => {
 		</Box>
 	);
 };
-
-// type t = React.ComponentProps<typeof LoginForm>;
 
 export default DI(LoginForm);
