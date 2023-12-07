@@ -7,15 +7,16 @@ declare global {
 	}
 
 	interface User {
+		isRestPassword: string;
+		userName: string;
+		id: string;
+		role: string;
+		lastLogin: string;
+		name: string;
+		mobileNumber: string;
 		accessToken: string;
 		refreshToken: string;
-		lastLoggedIn: string;
-		partnerId: string;
-		productId: string;
-		role: string;
-		roleCode: string;
-		userName: string;
-		profileImage: string;
+		profileIcon: string;
 	}
 
 	interface StorageInterface {

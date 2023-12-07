@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/react-query';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
@@ -10,11 +10,18 @@ import MetropolisLight from '@/assets/fonts/Metropolis/Metropolis-Light.otf';
 import MetropolisRegular from '@/assets/fonts/Metropolis/Metropolis-Regular.otf';
 import MetropolisThin from '@/assets/fonts/Metropolis/Metropolis-Thin.otf';
 import CustomLoader from '@/components/Loader/CustomLoader.tsx';
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
 
 import { routes } from './routes.tsx';
+import { getStorage } from './utils/common.ts';
 
 const queryClient = new QueryClient({
 	defaultOptions: { queries: { staleTime: 1000 * 60 * 5 } },
+});
+
+const persister = createSyncStoragePersister({
+	storage: getStorage(),
 });
 
 const router = createBrowserRouter(routes);
@@ -66,12 +73,15 @@ const darkTheme = createTheme({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		<QueryClientProvider client={queryClient}>
+		<PersistQueryClientProvider
+			client={queryClient}
+			persistOptions={{ persister }}
+		>
 			<ThemeProvider theme={darkTheme}>
 				<CssBaseline />
 				<RouterProvider router={router} />
 				<CustomLoader />
 			</ThemeProvider>
-		</QueryClientProvider>
+		</PersistQueryClientProvider>
 	</React.StrictMode>,
 );

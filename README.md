@@ -57,3 +57,9 @@ We can access the environment variables using the following syntax:
 ```js
 console.log(import.meta.env.VITE_APP_BASE_URL);
 ```
+
+## Todo
+
+-   Add protected routes
+-   Purge zustand state
+-   Add user roles

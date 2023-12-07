@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
@@ -17,10 +17,11 @@ import {
 import NewstreetLogo from '../../../assets/svg/NewStreetLogo';
 import TextHeading from '../../../components/TextHeading';
 import TextWithUnderline from '../../../components/TextWithUnderline';
-// import { useAppState } from '@/store/useAppState';
 
 import useLogin from '@/store/useLogin';
 import DI from '@/hoc/DI';
+import { useAppState } from '@/store/useAppState';
+
 // import useWso from '@/store/useWso';
 
 interface LoginFormProps extends Props {
@@ -30,10 +31,11 @@ interface LoginFormProps extends Props {
 }
 
 const LoginForm = (props: LoginFormProps) => {
+	const { setUser } = useAppState();
 	const [formData, setFormData] = useState({ userName: '', password: '' });
 	const login = useLogin();
 
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	// const { data } = useWso();
 	// console.log(data);
@@ -54,12 +56,14 @@ const LoginForm = (props: LoginFormProps) => {
 	}
 
 	if (login.isSuccess && login.data.data) {
+		setUser(login.data.data);
 		props.logger.info(
 			{ message: 'Login success' },
 			'user1',
 			props.componentName,
 		);
 		props.storage.setItem('accessToken', login.data.data?.accessToken);
+		navigate('/deposit-collect');
 	}
 
 	return (
