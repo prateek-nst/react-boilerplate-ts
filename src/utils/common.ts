@@ -1,8 +1,8 @@
-import { BaseLogger } from '@/services/logger/BaseLogger';
+// import { BaseLogger } from '@/services/logger/BaseLogger';
 import { DevLogger } from '@/services/logger/DevLogger';
 import { ProdLogger } from '@/services/logger/ProdLogger';
 
-export function getLogger(): BaseLogger {
+export function getLogger(): LoggerType {
 	let logger;
 	switch (import.meta.env.MODE) {
 		case 'development':

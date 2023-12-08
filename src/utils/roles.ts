@@ -18,22 +18,18 @@ RO10015  FBA  true  Federal Bank Admin
  * 
  */
 
-type Role = 'SBM' | 'RH' | 'SH' | 'CPVE';
+export const roleName: { [key in Role]: { fullName: string; landingPage: string } } =
+	{
+		SBM: { fullName: 'SHECOM branch manager', landingPage: 'page1' },
+		RH: { fullName: 'SHECOM Regional Head', landingPage: 'page2' },
+		SH: { fullName: 'State Head', landingPage: 'page3' },
+		CPVE: { fullName: 'SHECOM branch manager', landingPage: 'page3' },
+		FO: { fullName: 'Regional Officer', landingPage: 'page3' },
+	};
 
-export type RolePage = { [key in Role]: string[] };
-
-type RoleFullName = { [key in Role]: string };
-
-export const roleName: RoleFullName = {
-	SBM: 'SHECOM branch manager',
-	RH: 'SHECOM Regional Head',
-	SH: 'State Head',
-	CPVE: 'SHECOM branch manager',
-};
-
-export const roles: RolePage = {
-	SBM: ['reports', 'prospects'],
-	RH: [],
-	SH: [],
-	CPVE: [],
+export const roles: ScreenRole = {
+	DepositCollect: ['SBM', 'RH', 'SH', 'CPVE'],
+	LoanApproval: ['SBM', 'FO'],
+	Reports: ['CPVE'],
+	Monitor: ['CPVE'],
 };

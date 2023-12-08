@@ -1,5 +1,3 @@
-import { RolePage } from '@/utils/roles';
-
 export {};
 
 declare global {
@@ -47,12 +45,20 @@ declare global {
 		error(data: Error, user: string, page: string): void;
 	}
 
+	type Role = 'SBM' | 'RH' | 'SH' | 'CPVE' | 'FO';
+
+	// type for various screens
+	type Screens = 'DepositCollect' | 'LoanApproval' | 'Reports' | 'Monitor';
+
+	// mapping defines which screen is accessible to which roles
+	type ScreenRole = { [key in Screens]: Role[] };
+
 	interface Props {
 		logger: LoggerType;
 		storage: StorageInterface;
 		componentName: string;
 		children?: React.ReactNode;
-		roles: RolePage;
+		roles: ScreenRole;
 	}
 
 	// app state that we can carry around the whole app

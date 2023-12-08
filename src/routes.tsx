@@ -5,6 +5,7 @@ import Dhanam from '@/layout/Dhanam';
 import DepositCollect from '@/pages/DepositCollect/DepositCollect';
 import Login from '@/pages/Login/Login';
 import AuthRequired from './components/AuthRequired';
+import Monitor from './pages/Monitor/Monitor';
 
 // import Dhanam from '../layout/Dhanam';
 // import DepositCollect from '../pages/deposit-collect/DepositCollect';
@@ -46,7 +47,7 @@ export const routes = [
 				element: (
 					<Suspense fallback={'Loading ...'}>
 						<AuthRequired>
-							<DepositCollect />
+							<DepositCollect id={0} city={''} />
 						</AuthRequired>
 					</Suspense>
 				),
@@ -54,7 +55,11 @@ export const routes = [
 			},
 			{
 				path: '/monitor',
-				element: <p>monitor</p>,
+				element: (
+					<AuthRequired>
+						<Monitor id="1" />
+					</AuthRequired>
+				),
 				errorElement: <ErrorPage />,
 			},
 		],

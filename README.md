@@ -63,3 +63,4 @@ console.log(import.meta.env.VITE_APP_BASE_URL);
 -   Add protected routes
 -   Purge zustand state
 -   Add user roles
+-   lazy loading
