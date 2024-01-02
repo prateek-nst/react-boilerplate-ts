@@ -12,9 +12,7 @@ export function getLogger(): LoggerType {
 			logger = ProdLogger.getInstance();
 			break;
 		default:
-			throw new Error(
-				`Undefined environment. Make sure you define the corresponding Logger class.`,
-			);
+			logger = DevLogger.getInstance();
 	}
 
 	return logger;
@@ -30,9 +28,7 @@ export function getStorage(): StorageInterface {
 			storage = window.sessionStorage;
 			break;
 		default:
-			throw new Error(
-				'Undefined storage. Possible values: localStorage, sessionStorage',
-			);
+			storage = window.localStorage;
 	}
 
 	return storage;

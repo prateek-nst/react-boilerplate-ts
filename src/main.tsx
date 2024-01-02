@@ -71,6 +71,26 @@ const darkTheme = createTheme({
 	},
 });
 
+function Boot(props: any) {
+	if (!import.meta.env.VITE_INITIAL_TOKEN) {
+		throw new Error('VITE_INITIAL_TOKEN not defined');
+	}
+
+	if (!import.meta.env.VITE_WSO2_URL) {
+		throw new Error('VITE_WSO2_URL');
+	}
+
+	if (!import.meta.env.VITE_UMS_BASE_URL) {
+		throw new Error('VITE_UMS_BASE_URL');
+	}
+
+	if (!import.meta.env.VITE_CMS_BASE_URL) {
+		throw new Error('VITE_CMS_BASE_URL');
+	}
+
+	return props.children;
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<PersistQueryClientProvider
@@ -79,7 +99,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 		>
 			<ThemeProvider theme={darkTheme}>
 				<CssBaseline />
-				<RouterProvider router={router} />
+				<Boot>
+					<RouterProvider router={router} />
+				</Boot>
 				<CustomLoader />
 			</ThemeProvider>
 		</PersistQueryClientProvider>

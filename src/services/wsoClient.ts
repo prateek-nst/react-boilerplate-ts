@@ -5,12 +5,6 @@ const axiosInstance: AxiosInstance = axios.create({
 	baseURL: import.meta.env.VITE_WSO2_URL,
 });
 
-if (!import.meta.env.VITE_INITIAL_TOKEN) {
-	console.log('#'.repeat(40));
-	console.log('Undefined Initial Token');
-	console.log('#'.repeat(40));
-}
-
 axiosInstance.interceptors.request.use(
 	(config) => {
 		config.headers = config.headers || {};
