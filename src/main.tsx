@@ -71,7 +71,7 @@ const darkTheme = createTheme({
 	},
 });
 
-function Boot(props: any) {
+function Boot(props: { children: React.ReactNode }) {
 	if (!import.meta.env.VITE_INITIAL_TOKEN) {
 		throw new Error('VITE_INITIAL_TOKEN not defined');
 	}
